@@ -64,7 +64,7 @@ untuk mengelola struktur database dari proyek yang saya buat.
 1. saya harus membuat direktori baru dengan nama `templates` di dalam direktori aplikasi `main`
 2. di dalam direktori tersebut, saya membuat berkas html baru dengan nama `main.html`. saya hanya menambahkan beberapa data yang di minta soal, yaitu dari `nama aplikasi saya`, `nama saya`, dan `kelas saya`.
    
-# Membuat routing pada urls.py pada aplikasi main
+### Membuat routing pada urls.py pada aplikasi main
 step ini berbeda dengan step yang ketiga, karena `urls.py` ini perlu kita buat di direktori main dengan path berikut :
 ```python
   from django.urls import path
