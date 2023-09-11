@@ -83,3 +83,17 @@ setelah step sebelumnya sudah dilakukan dengan baik, saya perlu sign-in ke adapt
 
 ### Membuat sebuah README.md
 untuk step terakhir ini, saya hanya perlu mengisi beberapa pertanyaan yang sudah di sediakan oleh tim dosen dan tim asdos untuk mereview kembali materi yang sudah diajarkan dosen di kelas dan pada asdos di sesi tutorial.
+
+## Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
+Jawaban :
+![Bagan Request Client](./src/image1.png)
+### Request Client
+Client akan mengirimkan permintaan ke aplikasi web Django berupa URL tertentu melalui browser atau aplikasi lainnya
+### urls.py
+Django akan mencocokkan URL yang diterima dari client dengan pola URL yang telah didefinisikan. Jika URL cocok, Django akan memetakan permintaan ke fungsi view yang sesuai
+### views.py
+`views.py` berisi logika untuk mengambil, memproses, atau memanipulasi data yang diperlukan dari database yang jika sesuai, view akan menerima permintaan dari urls.py. Setelah data diproses, view akan mempersiapkan konteks yang akan disematkan dalam template HTML.
+### models.py
+`views.py` dapat berinteraksi dengan database melalui model yang telah didefinisikan dalam file `models.py`. Model ini menggambarkan struktur tabel dalam database dan menyediakan API untuk mengakses dan memanipulasi data. Data yang diperoleh dari database dapat digunakan dalam `views.py` untuk kemudian disajikan dalam template HTML.
+### templates HTML
+Template dapat mengambil data dari konteks yang diberikan oleh view dan menampilkan data tersebut sesuai dengan desain tampilan yang telah didefinisikan.
