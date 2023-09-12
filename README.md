@@ -85,7 +85,6 @@ setelah step sebelumnya sudah dilakukan dengan baik, saya perlu sign-in ke adapt
 untuk step terakhir ini, saya hanya perlu mengisi beberapa pertanyaan yang sudah di sediakan oleh tim dosen dan tim asdos untuk mereview kembali materi yang sudah diajarkan dosen di kelas dan pada asdos di sesi tutorial.
 
 ## Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
-Jawaban :
 <img width="717" alt="image1" src="https://github.com/VirgilliaYeala/skincare-list/assets/124979875/1fa729e8-15e5-4541-a7f6-3a7133f3947a">
 
 ### request client
