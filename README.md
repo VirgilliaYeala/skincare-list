@@ -85,8 +85,13 @@ setelah step sebelumnya sudah dilakukan dengan baik, saya perlu sign-in ke adapt
 untuk step terakhir ini, saya hanya perlu mengisi beberapa pertanyaan yang sudah di sediakan oleh tim dosen dan tim asdos untuk mereview kembali materi yang sudah diajarkan dosen di kelas dan pada asdos di sesi tutorial.
 
 ## Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
+<<<<<<< HEAD
 Jawaban :
 ![Bagan Request Client](./src/image1.png)
+=======
+<img width="717" alt="image1" src="https://github.com/VirgilliaYeala/skincare-list/assets/124979875/1fa729e8-15e5-4541-a7f6-3a7133f3947a">
+
+>>>>>>> ca139f456c03793448d335affc290534f943f258
 ### request client
 Client akan mengirimkan permintaan ke aplikasi web Django berupa URL tertentu melalui browser atau aplikasi lainnya
 ### urls.py
@@ -138,4 +143,11 @@ Jawaban :
      antarmuka pengguna yang menampilkan data dan merespons tindakan pengguna, sedangkan ViewModel adalah perantara antara
      Model dan View. ViewModel menghubungkan data Model ke tampilan View dan berisi logika bisnis terkait tampilan. MVVM
      membantu dalam memisahkan logika bisnis tampilan dari tampilan itu sendiri, memungkinkan pengembangan UI yang lebih
+<<<<<<< HEAD
      fleksibel dan terkelola.
+=======
+     fleksibel dan terkelola.
+## Bonus
+saya berhasil mengimplementasikan testing dasar yang dapat dilihat pada `./main/tests.py` yang melakukan testing untuk Model data dan response routing dengan menjalankan perintah `python manage.py test`
+<img width="349" alt="image2" src="https://github.com/VirgilliaYeala/skincare-list/assets/124979875/a4cf8516-34fa-44c7-8897-99f09a858470">
+>>>>>>> ca139f456c03793448d335affc290534f943f258
