@@ -139,3 +139,6 @@ Jawaban :
      Model dan View. ViewModel menghubungkan data Model ke tampilan View dan berisi logika bisnis terkait tampilan. MVVM
      membantu dalam memisahkan logika bisnis tampilan dari tampilan itu sendiri, memungkinkan pengembangan UI yang lebih
      fleksibel dan terkelola.
+## Bonus
+saya berhasil mengimplementasikan testing dasar yang dapat dilihat pada `./main/tests.py` yang melakukan testing untuk Model data dan response routing dengan menjalankan perintah `python manage.py test`
+<img width="349" alt="image2" src="https://github.com/VirgilliaYeala/skincare-list/assets/124979875/a4cf8516-34fa-44c7-8897-99f09a858470">
