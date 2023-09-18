@@ -151,14 +151,14 @@ Jawaban :
 Saya berhasil mengimplementasikan testing dasar yang dapat dilihat pada `./main/tests.py` yang melakukan testing untuk Model data dan response routing dengan menjalankan perintah `python manage.py test`
 <img width="349" alt="image2" src="https://github.com/VirgilliaYeala/skincare-list/assets/124979875/a4cf8516-34fa-44c7-8897-99f09a858470">
 
-# Tugas 1
+# Tugas 3
 ## Apa perbedaan antara form POST dan form GET dalam Django?
 **Form POST**:
 1. Menggunakan metode HTTP POST untuk mengirim data.
 2. Data dikirim dalam tubuh permintaan HTTP dan tidak terlihat dalam URL.
 3. Cocok digunakan untuk mengirim data yang bersifat sensitif atau data yang ingin disembunyikan dari pengguna.
 4. Data yang dikirim tidak terlihat dalam baris alamat browser, sehingga lebih aman.
-5. 
+   
 **Form GET**:
 1. Menggunakan metode HTTP GET untuk mengirim data.
 2. Data dikirim sebagai bagian dari URL dan terlihat dalam tautan atau baris alamat browser.
@@ -172,7 +172,7 @@ Saya berhasil mengimplementasikan testing dasar yang dapat dilihat pada `./main/
 2. XML memiliki aturan yang ketat dalam hal struktur dan validasi data melalui DTD (Document Type Definition) atau XML Schema.
 3. Dapat digunakan untuk menggambarkan struktur data yang kompleks dan memiliki kemampuan untuk mendefinisikan sendiri elemen dan atribut.
 4. Digunakan secara luas dalam pertukaran data terstruktur antar sistem dan dalam berbagai konteks seperti SOAP (Simple Object Access Protocol) dalam layanan web.
-5. 
+   
 **JSON**:
 1. JSON adalah format pertukaran data yang ringan dan mudah dibaca oleh manusia.
 2. Berdasarkan notasi objek JavaScript, JSON memiliki sintaksis yang lebih sederhana dibandingkan dengan XML.
@@ -188,3 +188,200 @@ Saya berhasil mengimplementasikan testing dasar yang dapat dilihat pada `./main/
 JSON (JavaScript Object Notation) sering digunakan dalam pertukaran data antara aplikasi web modern karena kemudahan penggunaan, efisiensi, dan dukungan yang luas. JSON memiliki sintaksis yang sederhana dan mudah dibaca oleh manusia, serta ringan sehingga mengurangi beban jaringan. Selain itu, JSON berasal dari notasi objek JavaScript, sehingga mudah diintegrasikan dengan bahasa pemrograman yang banyak digunakan dalam pengembangan web. Format ini juga mendukung berbagai tipe data, seperti objek, array, string, angka, boolean, dan null, menjadikannya fleksibel untuk merepresentasikan berbagai jenis data. JSON digunakan secara luas dalam pengembangan API RESTful, yang merupakan pendekatan umum dalam pembangunan aplikasi web modern. Keterbacaan dalam log dan kemudahan debugging adalah keuntungan tambahan. Dengan semua keunggulan ini, JSON telah menjadi format standar untuk pertukaran data antara aplikasi web, memfasilitasi komunikasi yang efisien dan efektif di seluruh ekosistem web.
 
 ## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+### Membuat input form untuk menambahkan objek model pada app sebelumnya
+1. saya buka direktori `main`, kemudian saya buat file baru dengan nama `forms.py` dan tambahkan kode berikut ke file tersebut :
+```python
+from django.forms import ModelForm
+from main.models import Product
+
+class ProductForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = ["brand","name", "amount", "description", "price"]
+  ```
+2. Di direktori yang sama, saya menambahkan beberapa import berikut ke file `views.py` :
+```python
+from django.http import HttpResponseRedirect
+from main.forms import ProductForm
+from django.urls import reverse
+  ```
+3. Di `views.py`, saya menambahkan beberapa fungsi baru berikut ini dengan nama `create_product` dengan parameter `request` :
+```python
+def create_product(request):
+    form = ProductForm(request.POST or None)
+
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "create_product.html", context)
+  ```
+4. Tidak hanya itu, saya juga mengubah fungsi `show_main` di berkas `views.py` dengan kode berikut :
+```python
+def show_main(request):
+    products = Product.objects.all()
+
+    context = {
+        'name': 'Virgillia Yeala Prabowo', # Nama kamu
+        'class': 'PBP E', # Kelas PBP kamu
+        'products': products
+    }
+
+    return render(request, "main.html", context)
+  ```
+5. Di file `urls.py` saya menambahkan beberapa kode berikut :
+   import fungsi `create_product`
+   ```python
+   from main.views import show_main, create_product
+   ```
+   menambahkan path url ke dalam `urlpatterns`
+   ```python
+   path('create-product', create_product, name='create_product'),
+   ```
+6. Saya membuat berkas HTML baru dengan nama file `create_product.html` di direktori `main/templates` dengan kode berikut ini :
+   ```python
+   {% extends 'base.html' %} 
+
+   {% block content %}
+   <h1>Add New Product</h1>
+   
+   <form method="POST">
+       {% csrf_token %}
+       <table>
+           {{ form.as_table }}
+           <tr>
+               <td></td>
+               <td>
+                   <input type="submit" value="Add Product"/>
+               </td>
+           </tr>
+       </table>
+   </form>
+   
+   {% endblock %}
+   ```
+7. Saya mengubah file `main.html` saya dengan menambahkan beberapa kode berikut :
+```python
+...
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Date Added</th>
+    </tr>
+
+    {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
+
+    {% for product in products %}
+        <tr>
+            <td>{{product.name}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product.description}}</td>
+            <td>{{product.date_added}}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+<br />
+
+<a href="{% url 'main:create_product' %}">
+    <button>
+        Add New Product
+    </button>
+</a>
+
+{% endblock content %}
+```
+### Tambahkan 5 fungsi views untuk melihat objek yang sudah ditambahkan dalam format HTML, XML, JSON, XML by ID, dan JSON by ID.
+**Format HTML**
+1. Dalam format html sudah dilakukan pada tugas 2 yaitu dengan membuat berkas html `main.html` untuk menampilkan data yang telah ditambahkan. 
+2. Membuat fungsi pada `views.py` di direktori mian dengan kode
+    ```python
+    def show_main(request):
+    Items = Item.objects.all()
+
+    if ((Items.count() == 0)):
+      context = {
+          'data' : default_book
+      }
+    else:
+      context = {
+          'data' : Items
+      }
+
+    return render(request, "main.html", context)
+    ```
+**Format XML dan XML by ID**
+1. Membuka file `views.py` dan menambahkan terlebih dahulu import berikut :
+```python
+from django.http import HttpResponse
+from django.core import serializers
+```
+2. Membuat fungsi baru dalam berkas `views.py` di direktori `main` dengan nama `show_xml` untuk menampilkan format XML dan `show_xml_by_id` untuk menampilkan format XML dengan ID tertentu.
+3. Untuk `show_xml` yang menampilkan semua data maka ditambahkan kode untuk mengambil data dengan `Product.objects.all()` dan untuk `show_xml_by_id` yang menampilkan data dengan ID tertentu ditambahkan kode dengan melakukan filter yaitu dengan `Product.objects.filter(pk=id)`
+3. Kemudian data akan diubah menjadi format XML dengan `serializers.serialize("xml",data)` sehingga menampilkan format XML. Kurang lebih kode akan menjadi
+    ```python
+    def show_xml(request):
+    data = Product.objects.all()
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+    def show_xml_by_id(request, id):
+    data = Product.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+    ```
+
+**Format JSON dan JSON by ID**
+1. Membuka file `views.py` dan menambahkan terlebih dahulu import berikut :
+```python
+from django.http import HttpResponse
+from django.core import serializers
+```
+2. Menambahkan fungsi `show_json` di direktori `main` untuk menampilkan format JSON dan `show_json_by_id` untuk menampilkan format JSON by ID. Sehingga `views.py` dalam direktori `main` ditambahkan dengan kode berikut :
+    ```python
+    def show_json(request):
+    data = Product.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+    def show_json_by_id(request, id):
+    data = Product.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+    ```
+### Membuat routing URL untuk masing-masing views yang telah ditambahkan pada poin 2.
+**Format HTML**
+untuk format HTML, saya hanya perlu menambahkan beberapa potongan kode berikut ke file `urls.py` yang berada di direktori `main` :
+```bash
+path('', show_main, name='show_main'),
+```
+**Format XML dan XML by ID**
+untuk Format XML dan XML by ID, saya perlu menambahkan potongan kode berikut :
+import fungsi 
+```python
+from main.views import show_main, create_product, show_xml, show_xml_by_id
+```
+menambahkan path url di `urlspatterns`
+```python
+urlpatterns = [
+    ...
+    path('xml/', show_xml, name='show_xml'),
+    path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id')
+    ...
+]
+```
+**Format JSON dan JSON by ID**
+untuk Format JSON dan JSON by ID, saya perlu menambahkan potongan kode berikut :
+import fungsi
+```python
+from main.views import show_main, show_landing_page, create_book, show_xml, show_json, show_xml_by_id, show_json_by_id
+```
+menambahkan path url di `urlpatterns`
+```python
+urlpatterns = [
+    ...
+    path('json/', show_json, name='show_json'), 
+    path('json/<int:id>/', show_json_by_id, name='show_json_by_id'), 
+    ...
+]
+```
+### Mengakses kelima URL di poin 2 menggunakan Postman, membuat screenshot dari hasil akses URL pada Postman, dan menambahkannya ke dalam README.md.
