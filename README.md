@@ -1,5 +1,5 @@
 [Skincare List Adabtable](https://my-skincare-app.adaptable.app/main/)
-
+# Tugas 2
 ## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 Jawaban :
 ### Membuat Proyek Django baru
@@ -148,5 +148,43 @@ Jawaban :
 =======
      fleksibel dan terkelola.
 ## Bonus
-saya berhasil mengimplementasikan testing dasar yang dapat dilihat pada `./main/tests.py` yang melakukan testing untuk Model data dan response routing dengan menjalankan perintah `python manage.py test`
+Saya berhasil mengimplementasikan testing dasar yang dapat dilihat pada `./main/tests.py` yang melakukan testing untuk Model data dan response routing dengan menjalankan perintah `python manage.py test`
 <img width="349" alt="image2" src="https://github.com/VirgilliaYeala/skincare-list/assets/124979875/a4cf8516-34fa-44c7-8897-99f09a858470">
+
+# Tugas 1
+## Apa perbedaan antara form POST dan form GET dalam Django?
+**Form POST**:
+1. Menggunakan metode HTTP POST untuk mengirim data.
+2. Data dikirim dalam tubuh permintaan HTTP dan tidak terlihat dalam URL.
+3. Cocok digunakan untuk mengirim data yang bersifat sensitif atau data yang ingin disembunyikan dari pengguna.
+4. Data yang dikirim tidak terlihat dalam baris alamat browser, sehingga lebih aman.
+5. 
+**Form GET**:
+1. Menggunakan metode HTTP GET untuk mengirim data.
+2. Data dikirim sebagai bagian dari URL dan terlihat dalam tautan atau baris alamat browser.
+3. Cocok digunakan untuk mengambil data dari server.
+4. Data yang dikirim dapat dengan mudah di-bookmark atau dibagikan karena terlihat dalam URL.
+5. Tidak aman untuk mengirim data sensitif, seperti kata sandi, karena terlihat dalam URL.
+
+## Apa perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data?
+**XML**:
+1. XML adalah bahasa markup yang digunakan untuk mengatur dan mengirim data dalam bentuk yang dapat dibaca oleh manusia maupun komputer.
+2. XML memiliki aturan yang ketat dalam hal struktur dan validasi data melalui DTD (Document Type Definition) atau XML Schema.
+3. Dapat digunakan untuk menggambarkan struktur data yang kompleks dan memiliki kemampuan untuk mendefinisikan sendiri elemen dan atribut.
+4. Digunakan secara luas dalam pertukaran data terstruktur antar sistem dan dalam berbagai konteks seperti SOAP (Simple Object Access Protocol) dalam layanan web.
+5. 
+**JSON**:
+1. JSON adalah format pertukaran data yang ringan dan mudah dibaca oleh manusia.
+2. Berdasarkan notasi objek JavaScript, JSON memiliki sintaksis yang lebih sederhana dibandingkan dengan XML.
+3. JSON mendukung tipe data seperti objek, array, string, angka, boolean, dan null.
+4. Umumnya digunakan dalam pengembangan web dan aplikasi yang memerlukan pertukaran data antara server dan klien. Selain itu, JSON juga digunakan dalam API RESTful.
+
+**HTML**:
+1. HTML adalah bahasa markup yang digunakan untuk membuat halaman web dan mengatur cara tampilan dan struktur konten di browser web.
+2. HTML terutama digunakan untuk mengatur tampilan dan interaksi dengan pengguna dalam konteks pengembangan web.
+3. Meskipun HTML juga dapat digunakan untuk mengirim data, penggunaan utamanya adalah dalam membuat antarmuka pengguna dan menampilkan informasi di halaman web.
+
+## Mengapa JSON sering digunakan dalam pertukaran data antara aplikasi web modern?
+JSON (JavaScript Object Notation) sering digunakan dalam pertukaran data antara aplikasi web modern karena kemudahan penggunaan, efisiensi, dan dukungan yang luas. JSON memiliki sintaksis yang sederhana dan mudah dibaca oleh manusia, serta ringan sehingga mengurangi beban jaringan. Selain itu, JSON berasal dari notasi objek JavaScript, sehingga mudah diintegrasikan dengan bahasa pemrograman yang banyak digunakan dalam pengembangan web. Format ini juga mendukung berbagai tipe data, seperti objek, array, string, angka, boolean, dan null, menjadikannya fleksibel untuk merepresentasikan berbagai jenis data. JSON digunakan secara luas dalam pengembangan API RESTful, yang merupakan pendekatan umum dalam pembangunan aplikasi web modern. Keterbacaan dalam log dan kemudahan debugging adalah keuntungan tambahan. Dengan semua keunggulan ini, JSON telah menjadi format standar untuk pertukaran data antara aplikasi web, memfasilitasi komunikasi yang efisien dan efektif di seluruh ekosistem web.
+
+## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
