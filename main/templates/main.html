@@ -1,148 +1,52 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Halaman Web Warna Pink</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;700&family=Manrope:wght@300;400;700&display=swap">
+{% extends 'base.html' %}
+
+{% block content %}
     <style>
-        .rectangle {
-            width: 1260px; 
-            height: 70px; 
-            background-color: #EBC2D5; 
-            text-align: center; 
-            line-height: 70px;
+        table {
+            border-collapse: separate;
+            border-spacing: 10px;
         }
-
-        .rectangle1 {
-            width: 279px; 
-            height: 201px; 
-            background-color: #EBC2D5; 
-            text-align: center; 
-            line-height: 100px;
-            border-radius: 20px;
-            margin-right: 50px;
-            margin-top: 30px;
-        }
-
-        .rectangle2 {
-            width: 132px; 
-            height: 28px; 
-            background-color: #A42153; 
-            text-align: center; 
-            line-height: 28px;
-            border-radius: 20px;
-            margin-left: 68px;
-            margin-right: 68px;
-            margin-top: 10px;
-            align-self: center;
-        }
-
-        .rectangle3 {
-            width: 1260px; 
-            height: 70px; 
-            background-color: #A42153; 
-            text-align: center; 
-            line-height: 70px;
-        }
-
-        .container {
-            position: relative;
-            width: 1100px;
-            justify-content: center; 
-            align-items: left;
-            justify-content: space-between; 
-            display: flex;
-            margin-left: 20px; 
-            margin-right: 10px;
-        }
-
-        .custom-font {
-        font-family: 'Sora', sans-serif;
-        }
-
-        .custom-font1 {
-            font-family: 'Manrope', sans-serif;
-        }
-
-        .left {
-            float: left;
-        }
-
-        .right {
-            float: right;
-        }
-
-        .center {
-            text-align: center;
-        }
-
-        .my-element {
-            margin-bottom: 50px; 
+        th, td {
+            padding: 10px;
         }
     </style>
-</head>
-<body style="background-color: #A42153;">
-    <div class="rectangle">
-        <div class="left custom-font1" style="color: #A42153; margin-left: 200px; font-weight: 600;">Stock Up on Beauty</div>
-        <div class="right custom-font1" style="color: #A42153; margin-right: 200px; font-weight: 600;">Stock Up on Confidence</div>
-        <div class="center custom-font" style="color: #A42153; margin-bottom:200px;font-weight: 800; font-size: 30px;">skincare-list</div>
-    </div>
 
-    <div class="center custom-font" style="color: #EBC2D5; margin-top: 30px; font-weight: 600;font-size: 20px;">So, what exactly is skincare-list?</div>
-    <div class="center custom-font1" style="color: #EBC2D5;margin-left: 300px;margin-right: 300px; font-weight: 500;font-size: 17px;">"skincare-list" is a platform specially designed to help you organize and manage your list of favorite skincare products. it's also a useful tool that can assist you in planning and tracking your skincare routine.</div>
-    
-    <div class="custom-font1" style="color: #EBC2D5;margin-left: 120px;margin-right: 100px; margin-top: 30px; display: flex; justify-content: space-between;">
-        <div style="font-weight: 600;">Toner</div>
-        <div style="font-weight: 600;">Moisturizer</div>
-        <div style="font-weight: 600;">Serum</div>
-        <div style="font-weight: 600;">Sunscreen</div>
-    </div>
+    <h1>Skincare List Page</h1>
 
-    <div class="container">
-        <div class="rectangle1">
-            <div class="custom-font" style="color: #A42153; font-weight: 800; font-size: 18px;">{{ toner.brand }}</div>
-            <div class="custom-font" style="color: #A42153; font-weight: 800;margin-top: -80px; font-size: 18px;">{{ toner.name }}</div>
-            <div class="custom-font1" style="color: #A42153;margin-top: -80px;line-height: -50px; font-weight: 500; font-size: 12px;">{{ toner.description}}</div>   
-            <div class="custom-font1" style="color: #A42153;margin-top: -80px;margin-bottom: 70px; line-height: -50px; font-weight: 500; font-size: 12px;">{{ toner.price }}</div>    
-            <div class="rectangle2">
-                <div class="custom-font" style="color: #EBC2D5; margin-top: -100px; font-weight: 800; font-size: 18px;">{{ toner.amount }} pcs</div>
-    
-            </div>       
-        </div>
-        <div class="rectangle1">
-            <div class="custom-font" style="color: #A42153; font-weight: 800; font-size: 18px;">{{ moisturizer.brand }}</div>
-            <div class="custom-font" style="color: #A42153; font-weight: 800;margin-top: -80px; font-size: 18px;">{{ moisturizer.name }}</div>
-            <div class="custom-font1" style="color: #A42153;margin-top: -80px;line-height: -50px; font-weight: 500; font-size: 12px;">{{ moisturizer.description}}</div>   
-            <div class="custom-font1" style="color: #A42153;margin-top: -80px;margin-bottom: 70px; line-height: -50px; font-weight: 500; font-size: 12px;">{{ moisturizer.price }}</div>    
-            <div class="rectangle2">
-                <div class="custom-font" style="color: #EBC2D5; margin-top: -100px; font-weight: 800; font-size: 18px;">{{ moisturizer.amount }} pcs</div>
-    
-            </div>       
-        </div>
-        <div class="rectangle1">
-            <div class="custom-font" style="color: #A42153; font-weight: 800; font-size: 18px;">{{ serum.brand }}</div>
-            <div class="custom-font" style="color: #A42153; font-weight: 800;margin-top: -80px; font-size: 18px;">{{ serum.name }}</div>
-            <div class="custom-font1" style="color: #A42153;margin-top: -80px;line-height: -50px; font-weight: 500; font-size: 12px;">{{ serum.description}}</div>   
-            <div class="custom-font1" style="color: #A42153;margin-top: -80px;margin-bottom: 70px; line-height: -50px; font-weight: 500; font-size: 12px;">{{ serum.price }}</div>    
-            <div class="rectangle2">
-                <div class="custom-font" style="color: #EBC2D5; margin-top: -100px; font-weight: 800; font-size: 18px;">{{ serum.amount }} pcs</div>
-    
-            </div>       
-        </div>
-        <div class="rectangle1">
-            <div class="custom-font" style="color: #A42153; font-weight: 800; font-size: 18px;">{{ sunscreen.brand }}</div>
-            <div class="custom-font" style="color: #A42153; font-weight: 800;margin-top: -80px; font-size: 18px;">{{ sunscreen.name }}</div>
-            <div class="custom-font1" style="color: #A42153;margin-top: -80px;line-height: -50px; font-weight: 500; font-size: 12px;">{{ sunscreen.description}}</div>   
-            <div class="custom-font1" style="color: #A42153;margin-top: -80px;margin-bottom: 70px; line-height: -50px; font-weight: 500; font-size: 12px;">{{ sunscreen.price }}</div>    
-            <div class="rectangle2">
-                <div class="custom-font" style="color: #EBC2D5; margin-top: -100px; font-weight: 800; font-size: 18px;">{{ sunscreen.amount }} pcs</div>
-            </div>       
-        </div>
-    </div>
+    <h5>Name:</h5>
+    <p>{{name}}</p>
 
-    <div class="my-element"></div>
+    <h5>Class:</h5>
+    <p>{{class}}</p>
 
-    <div class="rectangle3">
-        <div class="center custom-font" style="color: #EBC2D5; margin-bottom:200px;font-weight: 800; font-size: 18px;">Virgillia Yeala Prabowo - 2206829856 - PBP E</div>
-    </div>
-</body>
-</html>
+    <table>
+        <tr>
+            <th>Brand</th>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+
+        {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
+
+        {% for product in products %}
+            <tr>
+                <td>{{product.brand}}</td>
+                <td>{{product.name}}</td>
+                <td>{{product.amount}}</td>
+                <td>{{product.description}}</td>
+                <td>{{product.price}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <br />
+
+    <a href="{% url 'main:create_product' %}">
+        <button>
+            Add New Product
+        </button>
+    </a>
+
+{% endblock content %}
