@@ -399,11 +399,11 @@ Untuk implementasi bonus ini ada beberapa hal yang saya ubah di file `views.py` 
 1. di fungsi `create_product`, saya menambahkan beberapa logika untuk bisa mengambil data produk terakhir yang dimasukkan oleh pengguna setelah produk berhasil di simpan :
    ```python
    ...
-   # Ambil data produk terakhir yang dimasukkan
+           # Ambil data produk terakhir yang dimasukkan
            latest_product = Product.objects.latest('id')
            
            # Buat pesan notifikasi dengan informasi produk terakhir
-           notification_message = f"Kamu menyimpan produk {latest_product.name} dengan jumlah {latest_product.amount}."
+           notification_message = f"Kamu menyimpan skincare {latest_product.brand} dengan jumlah {latest_product.amount}."
            
            # Simpan pesan notifikasi di dalam sesi untuk ditampilkan di halaman utama
            request.session['notification_message'] = notification_message
@@ -412,7 +412,7 @@ Untuk implementasi bonus ini ada beberapa hal yang saya ubah di file `views.py` 
 2. di fungsi `show_main`, saya juga menambahkan beberapa logika untuk mengambil pesan notifikasinya dari sesi dan kemudian pesannya bakal di hapus dari sesi agar hanya dapat ditampilkan sekali saja :
    ```python
    ...
-   # Ambil pesan notifikasi dari sesi
+       # Ambil pesan notifikasi dari sesi
        notification_message = request.session.get('notification_message', None)
        
        # Hapus pesan notifikasi dari sesi
