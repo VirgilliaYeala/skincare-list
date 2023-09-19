@@ -143,13 +143,11 @@ Jawaban :
      antarmuka pengguna yang menampilkan data dan merespons tindakan pengguna, sedangkan ViewModel adalah perantara antara
      Model dan View. ViewModel menghubungkan data Model ke tampilan View dan berisi logika bisnis terkait tampilan. MVVM
      membantu dalam memisahkan logika bisnis tampilan dari tampilan itu sendiri, memungkinkan pengembangan UI yang lebih
-<<<<<<< HEAD
      fleksibel dan terkelola.
-=======
-     fleksibel dan terkelola.
+
 ## Bonus
 Saya berhasil mengimplementasikan testing dasar yang dapat dilihat pada `./main/tests.py` yang melakukan testing untuk Model data dan response routing dengan menjalankan perintah `python manage.py test`
-<img width="349" alt="image2" src="https://github.com/VirgilliaYeala/skincare-list/assets/124979875/a4cf8516-34fa-44c7-8897-99f09a858470">
+<img width="717" alt="image2" src="https://github.com/VirgilliaYeala/skincare-list/assets/124979875/a4cf8516-34fa-44c7-8897-99f09a858470">
 
 # Tugas 3
 ## Apa perbedaan antara form POST dan form GET dalam Django?
@@ -190,46 +188,46 @@ JSON (JavaScript Object Notation) sering digunakan dalam pertukaran data antara 
 ## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 ### Membuat input form untuk menambahkan objek model pada app sebelumnya
 1. saya buka direktori `main`, kemudian saya buat file baru dengan nama `forms.py` dan tambahkan kode berikut ke file tersebut :
-```python
-from django.forms import ModelForm
-from main.models import Product
-
-class ProductForm(ModelForm):
-    class Meta:
-        model = Product
-        fields = ["brand","name", "amount", "description", "price"]
-  ```
+   ```python
+   from django.forms import ModelForm
+   from main.models import Product
+   
+   class ProductForm(ModelForm):
+       class Meta:
+           model = Product
+           fields = ["brand","name", "amount", "description", "price"]
+     ```
 2. Di direktori yang sama, saya menambahkan beberapa import berikut ke file `views.py` :
-```python
-from django.http import HttpResponseRedirect
-from main.forms import ProductForm
-from django.urls import reverse
-  ```
+   ```python
+   from django.http import HttpResponseRedirect
+   from main.forms import ProductForm
+   from django.urls import reverse
+     ```
 3. Di `views.py`, saya menambahkan beberapa fungsi baru berikut ini dengan nama `create_product` dengan parameter `request` :
-```python
-def create_product(request):
-    form = ProductForm(request.POST or None)
-
-    if form.is_valid() and request.method == "POST":
-        form.save()
-        return HttpResponseRedirect(reverse('main:show_main'))
-
-    context = {'form': form}
-    return render(request, "create_product.html", context)
-  ```
+   ```python
+   def create_product(request):
+       form = ProductForm(request.POST or None)
+   
+       if form.is_valid() and request.method == "POST":
+           form.save()
+           return HttpResponseRedirect(reverse('main:show_main'))
+   
+       context = {'form': form}
+       return render(request, "create_product.html", context)
+     ```
 4. Tidak hanya itu, saya juga mengubah fungsi `show_main` di berkas `views.py` dengan kode berikut :
-```python
-def show_main(request):
-    products = Product.objects.all()
-
-    context = {
-        'name': 'Virgillia Yeala Prabowo', # Nama kamu
-        'class': 'PBP E', # Kelas PBP kamu
-        'products': products
-    }
-
-    return render(request, "main.html", context)
-  ```
+   ```python
+   def show_main(request):
+       products = Product.objects.all()
+   
+       context = {
+           'name': 'Virgillia Yeala Prabowo', # Nama kamu
+           'class': 'PBP E', # Kelas PBP kamu
+           'products': products
+       }
+   
+       return render(request, "main.html", context)
+     ```
 5. Di file `urls.py` saya menambahkan beberapa kode berikut :
    import fungsi `create_product`
    ```python
@@ -262,38 +260,38 @@ def show_main(request):
    {% endblock %}
    ```
 7. Saya mengubah file `main.html` saya dengan menambahkan beberapa kode berikut :
-```python
-...
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Description</th>
-        <th>Date Added</th>
-    </tr>
-
-    {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
-
-    {% for product in products %}
-        <tr>
-            <td>{{product.name}}</td>
-            <td>{{product.price}}</td>
-            <td>{{product.description}}</td>
-            <td>{{product.date_added}}</td>
-        </tr>
-    {% endfor %}
-</table>
-
-<br />
-
-<a href="{% url 'main:create_product' %}">
-    <button>
-        Add New Product
-    </button>
-</a>
-
-{% endblock content %}
-```
+   ```python
+   ...
+   <table>
+       <tr>
+           <th>Name</th>
+           <th>Price</th>
+           <th>Description</th>
+           <th>Date Added</th>
+       </tr>
+   
+       {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
+   
+       {% for product in products %}
+           <tr>
+               <td>{{product.name}}</td>
+               <td>{{product.price}}</td>
+               <td>{{product.description}}</td>
+               <td>{{product.date_added}}</td>
+           </tr>
+       {% endfor %}
+   </table>
+   
+   <br />
+   
+   <a href="{% url 'main:create_product' %}">
+       <button>
+           Add New Product
+       </button>
+   </a>
+   
+   {% endblock content %}
+   ```
 ### Tambahkan 5 fungsi views untuk melihat objek yang sudah ditambahkan dalam format HTML, XML, JSON, XML by ID, dan JSON by ID.
 **Format HTML**
 1. Dalam format html sudah dilakukan pada tugas 2 yaitu dengan membuat berkas html `main.html` untuk menampilkan data yang telah ditambahkan. 
@@ -315,10 +313,10 @@ def show_main(request):
     ```
 **Format XML dan XML by ID**
 1. Membuka file `views.py` dan menambahkan terlebih dahulu import berikut :
-```python
-from django.http import HttpResponse
-from django.core import serializers
-```
+   ```python
+   from django.http import HttpResponse
+   from django.core import serializers
+   ```
 2. Membuat fungsi baru dalam berkas `views.py` di direktori `main` dengan nama `show_xml` untuk menampilkan format XML dan `show_xml_by_id` untuk menampilkan format XML dengan ID tertentu.
 3. Untuk `show_xml` yang menampilkan semua data maka ditambahkan kode untuk mengambil data dengan `Product.objects.all()` dan untuk `show_xml_by_id` yang menampilkan data dengan ID tertentu ditambahkan kode dengan melakukan filter yaitu dengan `Product.objects.filter(pk=id)`
 3. Kemudian data akan diubah menjadi format XML dengan `serializers.serialize("xml",data)` sehingga menampilkan format XML. Kurang lebih kode akan menjadi
@@ -334,10 +332,10 @@ from django.core import serializers
 
 **Format JSON dan JSON by ID**
 1. Membuka file `views.py` dan menambahkan terlebih dahulu import berikut :
-```python
-from django.http import HttpResponse
-from django.core import serializers
-```
+   ```python
+   from django.http import HttpResponse
+   from django.core import serializers
+   ```
 2. Menambahkan fungsi `show_json` di direktori `main` untuk menampilkan format JSON dan `show_json_by_id` untuk menampilkan format JSON by ID. Sehingga `views.py` dalam direktori `main` ditambahkan dengan kode berikut :
     ```python
     def show_json(request):
@@ -349,39 +347,49 @@ from django.core import serializers
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
     ```
 ### Membuat routing URL untuk masing-masing views yang telah ditambahkan pada poin 2.
-**Format HTML**
-untuk format HTML, saya hanya perlu menambahkan beberapa potongan kode berikut ke file `urls.py` yang berada di direktori `main` :
-```bash
-path('', show_main, name='show_main'),
-```
-**Format XML dan XML by ID**
-untuk Format XML dan XML by ID, saya perlu menambahkan potongan kode berikut :
-import fungsi 
-```python
-from main.views import show_main, create_product, show_xml, show_xml_by_id
-```
-menambahkan path url di `urlspatterns`
-```python
-urlpatterns = [
-    ...
-    path('xml/', show_xml, name='show_xml'),
-    path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id')
-    ...
-]
-```
-**Format JSON dan JSON by ID**
-untuk Format JSON dan JSON by ID, saya perlu menambahkan potongan kode berikut :
-import fungsi
-```python
-from main.views import show_main, show_landing_page, create_book, show_xml, show_json, show_xml_by_id, show_json_by_id
-```
-menambahkan path url di `urlpatterns`
-```python
-urlpatterns = [
-    ...
-    path('json/', show_json, name='show_json'), 
-    path('json/<int:id>/', show_json_by_id, name='show_json_by_id'), 
-    ...
-]
-```
+1. **Format HTML**
+   untuk format HTML, saya hanya perlu menambahkan beberapa potongan kode berikut ke file `urls.py` yang berada di direktori `main` :
+   ```bash
+   path('', show_main, name='show_main'),
+   ```
+2. **Format XML dan XML by ID**
+   untuk Format XML dan XML by ID, saya perlu menambahkan potongan kode berikut :
+   import fungsi 
+   ```python
+   from main.views import show_main, create_product, show_xml, show_xml_by_id
+   ```
+   menambahkan path url di `urlspatterns`
+   ```python
+   urlpatterns = [
+       ...
+       path('xml/', show_xml, name='show_xml'),
+       path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id')
+       ...
+   ]
+   ```
+3. **Format JSON dan JSON by ID**
+   untuk Format JSON dan JSON by ID, saya perlu menambahkan potongan kode berikut :
+   import fungsi
+   ```python
+   from main.views import show_main, show_landing_page, create_book, show_xml, show_json, show_xml_by_id, show_json_by_id
+   ```
+   menambahkan path url di `urlpatterns`
+   ```python
+   urlpatterns = [
+       ...
+       path('json/', show_json, name='show_json'), 
+       path('json/<int:id>/', show_json_by_id, name='show_json_by_id'), 
+       ...
+   ]
+   ```
 ### Mengakses kelima URL di poin 2 menggunakan Postman, membuat screenshot dari hasil akses URL pada Postman, dan menambahkannya ke dalam README.md.
+1. **Format HTML**
+   ![image](https://github.com/VirgilliaYeala/skincare-list/assets/124979875/85be7d78-bfb8-49de-9670-a9e3a9a081a2)
+2. **Format XML**
+   ![image](https://github.com/VirgilliaYeala/skincare-list/assets/124979875/47e4a3e0-edd0-42a3-9faa-cd31aca09c6e)
+3. **Format XML by ID**
+   ![image](https://github.com/VirgilliaYeala/skincare-list/assets/124979875/465181e8-e4a9-4cb8-a7d1-7f0676a01291)
+4. **Format JSON**
+   ![image](https://github.com/VirgilliaYeala/skincare-list/assets/124979875/f05e5498-6719-41fe-9456-b65f65254cf5)
+5. **Format JSON by ID**
+   ![image](https://github.com/VirgilliaYeala/skincare-list/assets/124979875/4f0b631a-8719-4587-8001-aea567459187)
