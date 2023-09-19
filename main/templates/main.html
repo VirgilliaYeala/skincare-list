@@ -9,9 +9,47 @@
         th, td {
             padding: 10px;
         }
+        
+        body {
+            font-family: 'Sora', sans-serif;
+        }
+
+        h1, h5, p {
+            text-align: center;
+        }
+        
+        .container {
+        display: flex;
+        justify-content: center; 
+        align-items: center; 
+        }
+        
+        .notification {
+            color: #EBC2D5;
+            margin-top: 20px; 
+            margin-bottom: 20px;
+            font-family: 'Sora', sans-serif;
+            font-weight: 600;
+        }
+        
+        .custom-button {
+            background-color: #EBC2D5; 
+            color: #A42153; 
+            padding: 10px 20px; 
+            margin-top: 10px; 
+            border: none; 
+            border-radius: 20px; 
+            font-family: 'Sora', sans-serif;
+            font-weight: 600;
+        }
+        
+        .custom-button:hover {
+            background-color: #df3c7b;
+            color: #EBC2D5;
+        }
     </style>
 
-    <h1>Skincare List Page</h1>
+    <h1>Skincare-List</h1>
 
     <h5>Name:</h5>
     <p>{{name}}</p>
@@ -19,6 +57,22 @@
     <h5>Class:</h5>
     <p>{{class}}</p>
 
+    <div class="container">
+    <a href="{% url 'main:create_product' %}">
+        <button class="custom-button">
+            Add New Skincare
+        </button>
+    </a>
+    </div>   
+    
+    {% if notification_message %}
+    <div class="container">
+        <div class="notification">
+            {{ notification_message }}
+        </div>
+    </div>
+
+    {% endif %}
     <table>
         <tr>
             <th>Brand</th>
@@ -27,8 +81,6 @@
             <th>Description</th>
             <th>Price</th>
         </tr>
-
-        {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
 
         {% for product in products %}
             <tr>
@@ -42,11 +94,4 @@
     </table>
 
     <br />
-
-    <a href="{% url 'main:create_product' %}">
-        <button>
-            Add New Product
-        </button>
-    </a>
-
 {% endblock content %}
