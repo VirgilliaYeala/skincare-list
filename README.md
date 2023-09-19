@@ -347,12 +347,12 @@ JSON (JavaScript Object Notation) sering digunakan dalam pertukaran data antara 
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
     ```
 ### Membuat routing URL untuk masing-masing views yang telah ditambahkan pada poin 2.
-1. **Format HTML**
+1. **Format HTML**   :
    untuk format HTML, saya hanya perlu menambahkan beberapa potongan kode berikut ke file `urls.py` yang berada di direktori `main` :
    ```bash
    path('', show_main, name='show_main'),
    ```
-2. **Format XML dan XML by ID**
+2. **Format XML dan XML by ID**   :
    untuk Format XML dan XML by ID, saya perlu menambahkan potongan kode berikut :
    import fungsi 
    ```python
@@ -367,7 +367,7 @@ JSON (JavaScript Object Notation) sering digunakan dalam pertukaran data antara 
        ...
    ]
    ```
-3. **Format JSON dan JSON by ID**
+3. **Format JSON dan JSON by ID**   :
    untuk Format JSON dan JSON by ID, saya perlu menambahkan potongan kode berikut :
    import fungsi
    ```python
