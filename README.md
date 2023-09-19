@@ -393,3 +393,45 @@ JSON (JavaScript Object Notation) sering digunakan dalam pertukaran data antara 
    ![image](https://github.com/VirgilliaYeala/skincare-list/assets/124979875/f05e5498-6719-41fe-9456-b65f65254cf5)
 5. **Format JSON by ID**
    ![image](https://github.com/VirgilliaYeala/skincare-list/assets/124979875/4f0b631a-8719-4587-8001-aea567459187)
+
+## Bonus 
+Untuk implementasi bonus ini ada beberapa hal yang saya ubah di file `views.py` yaitu :
+1. di fungsi `create_product`, saya menambahkan beberapa logika untuk bisa mengambil data produk terakhir yang dimasukkan oleh pengguna setelah produk berhasil di simpan :
+   ```python
+   ...
+   # Ambil data produk terakhir yang dimasukkan
+           latest_product = Product.objects.latest('id')
+           
+           # Buat pesan notifikasi dengan informasi produk terakhir
+           notification_message = f"Kamu menyimpan produk {latest_product.name} dengan jumlah {latest_product.amount}."
+           
+           # Simpan pesan notifikasi di dalam sesi untuk ditampilkan di halaman utama
+           request.session['notification_message'] = notification_message
+   ...
+   ```
+2. di fungsi `show_main`, saya juga menambahkan beberapa logika untuk mengambil pesan notifikasinya dari sesi dan kemudian pesannya bakal di hapus dari sesi agar hanya dapat ditampilkan sekali saja :
+   ```python
+   ...
+   # Ambil pesan notifikasi dari sesi
+       notification_message = request.session.get('notification_message', None)
+       
+       # Hapus pesan notifikasi dari sesi
+       if 'notification_message' in request.session:
+           del request.session['notification_message']
+       
+       context = {
+           'name': 'Virgillia Yeala Prabowo',
+           'class': 'PBP E',
+           'products': products,
+           'notification_message': notification_message,
+       }
+   ...
+   ```
+3. lalu di `main.html`, saya menambahkan potongan kode berikut :
+   ```python
+   {% if notification_message %}
+   <div class="notification">
+       {{ notification_message }}
+   </div>
+   {% endif %}
+   ```
