@@ -1,6 +1,3 @@
-## Informasi Tambahan
-- [Dokumentasi Tambahan 1](./path/to/README1.md)
-- [Dokumentasi Tambahan 2](./path/to/README2.md)
   
 # Tugas 2
 ## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
