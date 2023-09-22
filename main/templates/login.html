@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+    <title>Login</title>
+{% endblock meta %}
+
+{% block content %}
+
+<style>
+    body {
+        font-family: 'Sora', sans-serif;
+    }
+
+    h1, h5, p {
+        text-align: center;
+    }
+
+    .login {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 90vh; /* Membuat div menutupi seluruh tinggi viewport */
+    }
+
+    .custom-button {
+        background-color: #EBC2D5; 
+        color: #A42153; 
+        padding: 10px 20px; 
+        margin-top: 10px; 
+        margin-bottom: 15px;
+        border: none; 
+        border-radius: 20px; 
+        font-family: 'Sora', sans-serif;
+        font-weight: 600;
+    }
+        
+    .custom-button:hover {
+        background-color: #df3c7b;
+        color: #EBC2D5;
+    }
+    
+    .form-control {
+        margin-bottom: 15px;
+    }
+</style>
+
+<div class = "login">
+
+    <h1>Login</h1>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td><div style="margin-bottom: 15px;">Username:</div></td>
+                <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
+            </tr>
+                    
+            <tr>
+                <td><div style="margin-bottom: 15px;">Password:</div></td>
+                <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td><input class="custom-button" type="submit" value="Login"></td>
+            </tr>
+        </table>
+    </form>
+
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}     
+        
+    Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a>
+
+</div>
+
+{% endblock content %}
