@@ -26,7 +26,7 @@ def show_main(request):
         'name': request.user.username,
         'products': products,
         'notification_message': notification_message,
-        'last_login': request.COOKIES['last_login'],
+        'last_login': request.COOKIES['last_login']
     }
 
     return render(request, "main.html", context)
