@@ -16,7 +16,7 @@ Jawaban : Django UserCreationForm adalah impor formulir bawaan yang memudahkan p
 |  umumnya mencakup username dan password (autentikasi lainnya : media sosial atau pihak ketiga)  | mengacu pada pengaturan izin yang diberikan kepada pengguna  |
 | memiliki built-in sistem autentikasi yang dapat mengelola proses autentikasi | menyediakan sistem otorisasi yang kuat dengan konsep "objek-objek izin"  |
 
-Alasan keduanya penting :
+**Alasan keduanya penting :**
 Kedua konsep ini bekerja bersama untuk menciptakan aplikasi web yang aman dan berfungsi dengan baik. Autentikasi memastikan identitas pengguna, sementara otorisasi mengontrol apa yang dapat mereka lakukan setelah terotentikasi. Dengan mengimplementasikan baik autentikasi maupun otorisasi dalam Django, Anda dapat mengembangkan aplikasi yang aman, andal, dan sesuai dengan kebutuhan bisnis Anda.
 
 ## Apa itu cookies dalam konteks aplikasi web, dan bagaimana Django menggunakan cookies untuk mengelola data sesi pengguna?
@@ -45,6 +45,7 @@ Penggunaan cookies dalam pengembangan web dapat aman jika diimplementasikan deng
 2. Cross-Site Request Forgery (CSRF):
 3. Session Hijacking
 4. Cookie Poisoning
+
 Penting untuk memahami bahwa risiko ini dapat diminimalkan dengan menerapkan praktik keamanan yang tepat, seperti penggunaan cookies HttpOnly, enkripsi data sensitif, dan pengaturan cookies yang benar.
 
 ## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)
@@ -230,7 +231,7 @@ python manage.py runserver
 3. setelah udah register akun baru, login ke aplikasinya dan `add product` sebanyak 3 kali dengan mengisi data data dari model yang sudah di tentukan, yaitu `[brand, name, amount, description, price]`
 
 ### Menghubungkan model Item dengan User
-1. buka file `modles.py` yang ada di direktori main dan menambahkan beberapa kode berikut :
+1. buka file `models.py` yang ada di direktori main dan menambahkan beberapa kode berikut :
 - menambahkan import
     ```bash
     from django.contrib.auth.models import User
