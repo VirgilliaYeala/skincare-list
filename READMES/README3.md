@@ -57,15 +57,15 @@ Penting untuk memahami bahwa risiko ini dapat diminimalkan dengan menerapkan pra
 lalu menambahkan fungsi `register` baru di file yang sama :
 ```python
     def register(request):
-    form = UserCreationForm()
+        form = UserCreationForm()
 
-    if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Your account has been successfully created!')
-            return redirect('main:login')
-    context = {'form':form}
+        if request.method == "POST":
+            form = UserCreationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Your account has been successfully created!')
+                return redirect('main:login')
+        context = {'form':form}
     return render(request, 'register.html', context)
 ```
 3. kemudian di `main/templates` membuat file HTML baru dengan nama `register.html` dan diisi dengan kode berikut :
@@ -301,3 +301,65 @@ python manage.py runserver
     <h5>Sesi terakhir login: {{ last_login }}</h5>
     ```
 
+## Bonus
+1. menambahkan fungsi baru di `views.py` seperti potongan kode berikut :
+    ```python
+    def add_stock(request, id = None):
+        product = Product.objects.get(pk=id)
+        product.amount += 1
+        product.save()
+        return redirect('main:show_main')
+    
+    def sub_stock(request, id = None):
+        product = Product.objects.get(pk=id)
+        if product.amount > 1:
+            product.amount -= 1
+            product.save()
+        return redirect('main:show_main')
+    
+    def delete_product(request, id = None):
+        product = Product.objects.get(pk=id)
+        product.delete()
+        return redirect('main:show_main')
+    ```
+2. menambahkan import berikut di file `urls.py` dan `urlpatterns`nya :
+    ```python
+    from main.views import add_stock, sub_stock, delete_product
+
+    urlpatterns = [
+        ...
+        path('add_stock/<int:id>/', add_stock, name='add_stock'),
+        path('sub_stock/<int:id>/', sub_stock, name='sub_stock'),
+        path('delete/<int:id>/)', delete_product, name='delete'),
+        ...
+    ]
+    ```
+3. menambahkan beberapa potongan kode berikut di `main.html` :
+    ```html
+    <form action="{% url 'main:sub_stock' id=product.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="update-button">
+            -
+        </button>
+    </form>
+    <div class="custom-font" style="margin-left: 20px; margin-right: 20px;">
+        {{product.amount}}
+    </div>
+    <form action="{% url 'main:add_stock' id=product.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="update-button">
+            +
+        </button>
+    </form>
+    ```
+    dan
+    ```html
+    <td class="center-td">
+        <div class="container">
+        <form action="{% url 'main:delete' id=product.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="delete-button">Delete</button>
+        </form>
+        </div>
+    </td>
+    ```

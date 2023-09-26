@@ -66,6 +66,36 @@
             color: #EBC2D5;
         }
 
+        .update-button {
+            background-color: #EBC2D5; 
+            color: #A42153; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 100px; 
+            font-family: 'Sora', sans-serif;
+            font-weight: 600;
+        }
+
+        .update-button:hover {
+            background-color: #df3c7b;
+            color: #EBC2D5;
+        }
+
+        .delete-button {
+            background-color: #EBC2D5; 
+            color: #A42153; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 100px; 
+            font-family: 'Sora', sans-serif;
+            font-weight: 400;
+        }
+
+        .delete-button:hover {
+            background-color: #df3c7b;
+            color: #EBC2D5;
+        }
+
         .custom-h4 {
             font-family: 'Manrope', sans-serif;
             max-width: 600px;
@@ -77,7 +107,7 @@
 
     <h1>Skincare-List</h1>
     <h4 class="custom-h4">
-        Halo! {{name}}
+        Welcome, {{name}}!
     </h4>
     <h4 class="custom-h4">
         "Skincare-List" is a platform specially designed to help you organize and manage your list of favorite skincare products. It's also a useful tool that can assist you in planning and tracking your skincare routine.
@@ -156,8 +186,22 @@
                     </div>
                 </td>
                 <td>
-                    <div class="custom-font">
-                        {{product.amount}}
+                    <div class = "container">
+                        <form action="{% url 'main:sub_stock' id=product.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="update-button">
+                                -
+                            </button>
+                        </form>
+                        <div class="custom-font" style="margin-left: 20px; margin-right: 20px;">
+                            {{product.amount}}
+                        </div>
+                        <form action="{% url 'main:add_stock' id=product.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="update-button">
+                                +
+                            </button>
+                        </form>
                     </div>
                 </td>
                 <td>
@@ -168,6 +212,14 @@
                 <td>
                     <div class="custom-font">
                         {{product.price}}
+                    </div>
+                </td>
+                <td class="center-td">
+                    <div class="container">
+                        <form action="{% url 'main:delete' id=product.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="delete-button">Delete</button>
+                        </form>
                     </div>
                 </td>
             </tr>

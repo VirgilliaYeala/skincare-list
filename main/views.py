@@ -3,9 +3,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from main.forms import ProductForm
 from main.models import Product
 from django.urls import reverse
-from django.shortcuts import render
 from django.core import serializers
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages  
 from django.contrib.auth import authenticate, login, logout
@@ -22,15 +21,35 @@ def show_main(request):
     if 'notification_message' in request.session:
         del request.session['notification_message']
     
+    # Cek apakah cookies 'last_login' ada
+    last_login = request.COOKIES.get('last_login', None)
+
     context = {
         'name': request.user.username,
         'products': products,
         'notification_message': notification_message,
-        'last_login': request.COOKIES['last_login']
+        'last_login': last_login,  # Gunakan nilai yang diperoleh dari cookies atau None jika tidak ada
     }
 
     return render(request, "main.html", context)
 
+def delete_product(request, id = None):
+    product = Product.objects.get(pk=id)
+    product.delete()
+    return redirect('main:show_main')
+    
+def add_stock(request, id = None):
+    product = Product.objects.get(pk=id)
+    product.amount += 1
+    product.save()
+    return redirect('main:show_main')
+    
+def sub_stock(request, id = None):
+    product = Product.objects.get(pk=id)
+    if product.amount > 1:
+        product.amount -= 1
+        product.save()
+    return redirect('main:show_main')
 
 def create_product(request):
     form = ProductForm(request.POST or None)
