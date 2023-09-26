@@ -1,6 +1,8 @@
 # Tugas 4
 ## Apa itu Django UserCreationForm, dan jelaskan apa kelebihan dan kekurangannya?
 Jawaban : Django UserCreationForm adalah impor formulir bawaan yang memudahkan pembuatan formulir pendaftaran pengguna dalam aplikasi web. Dengan formulir ini, pengguna baru dapat mendaftar dengan mudah di situs web Anda tanpa harus menulis kode dari awal.
+
+| kelebihan  | kekurangan |
 | ------------- | ------------- |
 | mempercepat proses pendaftaran pengguna | tidak memenuhi kebutuhan desain yang lebih kompleks atau khusus  |
 | melakukan validasi otomatis dalam pendaftaran  | perlu menambahkan fitur pendaftaran yang lebih kompleks secara manual  |
@@ -13,6 +15,7 @@ Jawaban : Django UserCreationForm adalah impor formulir bawaan yang memudahkan p
 | proses verifikasi identitas pengguna yang mencoba mengakses aplikasi | proses yang mengendalikan hak akses pengguna yang sudah terotentikasi ke berbagai bagian dari aplikasi  |
 |  umumnya mencakup username dan password (autentikasi lainnya : media sosial atau pihak ketiga)  | mengacu pada pengaturan izin yang diberikan kepada pengguna  |
 | memiliki built-in sistem autentikasi yang dapat mengelola proses autentikasi | menyediakan sistem otorisasi yang kuat dengan konsep "objek-objek izin"  |
+
 Alasan keduanya penting :
 Kedua konsep ini bekerja bersama untuk menciptakan aplikasi web yang aman dan berfungsi dengan baik. Autentikasi memastikan identitas pengguna, sementara otorisasi mengontrol apa yang dapat mereka lakukan setelah terotentikasi. Dengan mengimplementasikan baik autentikasi maupun otorisasi dalam Django, Anda dapat mengembangkan aplikasi yang aman, andal, dan sesuai dengan kebutuhan bisnis Anda.
 
