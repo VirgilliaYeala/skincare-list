@@ -103,6 +103,12 @@
             margin: 0 auto;
             line-height: 1.4; 
         }
+
+        .last-row {
+            color: #FEE4E0; /* Ganti dengan warna latar belakang yang Anda inginkan */
+            /* atau */
+            font-style: italic;/* Ganti dengan warna teks yang Anda inginkan */
+        }
     </style>
 
     <h1>Skincare-List</h1>
@@ -174,7 +180,7 @@
             </tr>
             
             {% for product in products %}
-            <tr>
+            <tr class="{% if forloop.last %}last-row{% endif %}">
                 <td>
                     <div class="custom-font">
                         {{product.brand}}
@@ -223,6 +229,7 @@
                     </div>
                 </td>
             </tr>
+            
             {% endfor %}
         </table>
     </div>
