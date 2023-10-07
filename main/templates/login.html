@@ -16,11 +16,12 @@
     }
 
     .login {
+        width: 100%; /* Lebar maksimum */
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: 90vh; /* Membuat div menutupi seluruh tinggi viewport */
+        height: 100vh; /* Membuat div menutupi seluruh tinggi viewport */
     }
 
     .custom-button {
@@ -29,7 +30,9 @@
         padding: 10px 20px; 
         margin-top: 10px; 
         margin-bottom: 15px;
+        margin-left: 20px;
         border: none; 
+        justify-content: center; 
         border-radius: 20px; 
         font-family: 'Sora', sans-serif;
         font-weight: 600;
@@ -47,18 +50,18 @@
 
 <div class = "login">
 
-    <h1>Login</h1>
+    <h1 style="font-weight: 600; margin-bottom: 20px;">Login</h1>
 
     <form method="POST" action="">
         {% csrf_token %}
         <table>
             <tr>
-                <td><div style="margin-bottom: 15px;">Username:</div></td>
+                <td><div style="margin-bottom: 15px;">Username  :</div></td>
                 <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
             </tr>
             
             <tr>
-                <td><div style="margin-bottom: 15px;">Password:</div></td>
+                <td><div style="margin-bottom: 15px;">Password  :</div></td>
                 <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
             </tr>
             

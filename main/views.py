@@ -1,5 +1,5 @@
 import datetime
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from main.forms import ProductForm
 from main.models import Product
 from django.urls import reverse
@@ -9,6 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages  
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 
 @login_required(login_url='/login')
 def show_main(request):
@@ -36,20 +37,20 @@ def show_main(request):
 def delete_product(request, id = None):
     product = Product.objects.get(pk=id)
     product.delete()
-    return redirect('main:show_main')
+    return HttpResponseRedirect(reverse('main:show_main'))
     
 def add_stock(request, id = None):
     product = Product.objects.get(pk=id)
     product.amount += 1
     product.save()
-    return redirect('main:show_main')
+    return HttpResponseRedirect(reverse('main:show_main'))
     
 def sub_stock(request, id = None):
     product = Product.objects.get(pk=id)
     if product.amount > 1:
         product.amount -= 1
         product.save()
-    return redirect('main:show_main')
+    return HttpResponseRedirect(reverse('main:show_main'))
 
 def create_product(request):
     form = ProductForm(request.POST or None)
@@ -106,6 +107,28 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
     return response
+
+def get_product_json(request):
+    product_item = Product.objects.all()
+    return HttpResponse(serializers.serialize('json', product_item))
+
+@csrf_exempt
+def add_product_ajax(request):
+    if request.method == 'POST':
+        brand = request.POST.get("brand")
+        name = request.POST.get("name")
+        amount = request.POST.get("amount")
+        description = request.POST.get("description")
+        price = request.POST.get("price")
+        user = request.user
+
+        new_product = Product(brand=brand, name=name, amount=amount, description=description,price=price, user=user)
+        new_product.save()
+
+        return HttpResponse(f"Kamu menyimpan skincare {brand} dengan jumlah {amount}.", status=201)
+
+
+    return HttpResponseNotFound()
 
 def show_xml(request):
     data = Product.objects.all()
