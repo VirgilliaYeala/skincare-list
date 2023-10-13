@@ -45,6 +45,7 @@
             padding: 10px 20px; 
             margin-top: 20px; 
             border: none; 
+            text-align: center;
             border-radius: 20px; 
             font-family: 'Sora', sans-serif;
             font-weight: 600;
@@ -102,6 +103,7 @@
             text-align: center;
             margin: 0 auto;
             line-height: 1.4; 
+            font-size: 18px;
         }
 
         .last-row {
@@ -111,22 +113,60 @@
         }
     </style>
 
-    <h1>Skincare-List</h1>
-    <h4 class="custom-h4">
+    <h1 style="font-weight: 600; margin-top: 20px;">Skincare-List</h1>
+    <h4 class="custom-h4" style="font-weight: 600;">
         Welcome, {{name}}!
     </h4>
     <h4 class="custom-h4">
         "Skincare-List" is a platform specially designed to help you organize and manage your list of favorite skincare products. It's also a useful tool that can assist you in planning and tracking your skincare routine.
     </h4>
+
     
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: #A42153;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Skincare</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form" onsubmit="return false;">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="name" class="col-form-label">Brand:</label>
+                            <input type="text" class="form-control" id="brand" name="brand"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="col-form-label">Amount:</label>
+                            <input type="number" class="form-control" id="amount" name="amount"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="col-form-label">Description:</label>
+                            <textarea class="form-control" id="description" name="description"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="price" class="col-form-label">Price:</label>
+                            <input type="text" class="form-control" id="price" name="price"></input>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="custom-button" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="custom-button" id="button_add" data-bs-dismiss="modal">Add Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
     
 
     <div class="container">
-        <a href="{% url 'main:create_product' %}">
-            <button class="custom-button">
-                Add New Skincare
-            </button>
-        </a>
+        <button class="custom-button" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Add New Skincare by AJAX
+        </button>
     </div>
     <div class="container">
         <a href="{% url 'main:logout' %}">
@@ -136,103 +176,126 @@
         </a>
     </div>
     
-    <h4 class="custom-h4" style="margin-top: 20px;">
+    <h4 class="custom-font" style="margin-top: 20px;">
         Sesi terakhir login: {{ last_login }}    
     </h4>
     
-    {% if notification_message %}
     <div class="container">
-        <div class="notification">
-            {{ notification_message }}
-        </div>
+        <div class="notification"></div>
     </div>
-    
-    {% endif %}
-    <div class="container">
 
-        <table>
-            <tr>
-                <th>
-                    <div class="custom-header">
-                        Brand
-                    </div>
-                </th>
-                <th>
-                    <div class="custom-header">
-                        Name
-                    </div>
-                </th>
-                <th>
-                    <div class="custom-header">
-                        Amount
-                    </div>
-                </th>
-                <th>
-                    <div class="custom-header">
-                        Description
-                    </div>
-                </th>
-                <th>
-                    <div class="custom-header">
-                        Price
-                    </div>
-                </th>
-            </tr>
-            
-            {% for product in products %}
-            <tr class="{% if forloop.last %}last-row{% endif %}">
-                <td>
-                    <div class="custom-font">
-                        {{product.brand}}
-                    </div>
-                </td>
-                <td>
-                    <div class="custom-font">
-                        {{product.name}}
-                    </div>
-                </td>
-                <td>
-                    <div class = "container">
-                        <form action="{% url 'main:sub_stock' id=product.id %}" method="POST">
-                            {% csrf_token %}
-                            <button type="submit" class="update-button">
-                                -
-                            </button>
-                        </form>
-                        <div class="custom-font" style="margin-left: 20px; margin-right: 20px;">
-                            {{product.amount}}
-                        </div>
-                        <form action="{% url 'main:add_stock' id=product.id %}" method="POST">
-                            {% csrf_token %}
-                            <button type="submit" class="update-button">
-                                +
-                            </button>
-                        </form>
-                    </div>
-                </td>
-                <td>
-                    <div class="custom-font">
-                        {{product.description}}
-                    </div>
-                </td>
-                <td>
-                    <div class="custom-font">
-                        {{product.price}}
-                    </div>
-                </td>
-                <td class="center-td">
-                    <div class="container">
-                        <form action="{% url 'main:delete' id=product.id %}" method="POST">
-                            {% csrf_token %}
-                            <button type="submit" class="delete-button">Delete</button>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-            
-            {% endfor %}
+    <div class="container">
+        <table id="product_table">
         </table>
     </div>
     
     <br />
+
+    <script>
+        async function getProducts() {
+            return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
+        }
+    
+        async function refreshProducts() {
+            document.getElementById("product_table").innerHTML = ""
+            const products = await getProducts()
+            let htmlString = `<tr>
+                <th> 
+                    <div class = "custom-header">
+                        Brand
+                    </div>
+                </th>
+                <th>
+                    <div class = "custom-header">
+                        Name
+                    </div>
+                </th>
+                <th>
+                    <div class = "custom-header">
+                        Amount
+                    </div>
+                </th>
+                <th>
+                    <div class = "custom-header">
+                        Description
+                    </div>
+                </th>
+                <th>
+                    <div class = "custom-header">
+                        Price
+                    </div>
+                </th>
+            </tr>`
+
+            products.forEach((item, index, array) => {
+                htmlString += `\n<tr class="${index === array.length - 1 ? 'last-row' : ''}" style="text-align: center;">
+                <td>${item.fields.brand}</td>
+                <td>${item.fields.name}</td>
+                <td>
+                    <div class = "container">
+                        <a href="sub_stock/${item.pk}">
+                                <button type="submit" class="update-button">
+                                    -
+                                </button>
+                            </a>
+                        <div class="custom-font" style="margin-left: 20px; margin-right: 20px;">
+                                ${item.fields.amount}
+                        </div> 
+                        <a href="add_stock/${item.pk}">
+                                <button type="submit" class="update-button">
+                                    +
+                                </button>
+                            </a>
+                    </div>
+                </td>
+                <td>${item.fields.description}</td>
+                <td>${item.fields.price}</td>
+                <td> 
+                    <button class = delete-button onclick="deleteProduct(${item.pk})">
+                        Delete
+                    </button>
+                </td>
+            </tr>` 
+            })
+            
+            document.getElementById("product_table").innerHTML = htmlString
+        }
+
+        async function deleteProduct(id) {
+            const response = await fetch(`/delete_product_ajax/${id}`);
+            refreshProducts();
+        }
+
+        function addProduct() {
+            fetch("/create-ajax/", {
+                method: "POST",
+                body: new FormData(document.querySelector('#form'))
+            }).then(response => {
+                if (response.status === 201) {
+                    // Jika respons berhasil, ambil pesan notifikasinya
+                    return response.text();
+                } else {
+                    throw new Error("Failed to add product");
+                }
+            })
+            .then(notificationMessage => {
+                // Tampilkan pesan notifikasi jika ada
+                if (notificationMessage) {
+                    const notificationElement = document.querySelector('.notification');
+                    if (notificationElement) {
+                        notificationElement.textContent = notificationMessage;
+                    }
+                }
+                // Kemudian, perbarui daftar produk
+                refreshProducts();
+            })
+
+            document.getElementById("form").reset()
+            return false
+        }
+        document.getElementById("button_add").onclick = addProduct
+    
+        refreshProducts()
+    </script>
 {% endblock content %}
+
