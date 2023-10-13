@@ -1,4 +1,5 @@
 import datetime
+import json
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from main.forms import ProductForm
 from main.models import Product
@@ -34,8 +35,8 @@ def show_main(request):
 
     return render(request, "main.html", context)
 
-def delete_product(request, id = None):
-    product = Product.objects.get(pk=id)
+def delete_product_ajax(request, id):
+    product = Product.objects.get(pk= id)
     product.delete()
     return HttpResponseRedirect(reverse('main:show_main'))
     
@@ -109,7 +110,7 @@ def logout_user(request):
     return response
 
 def get_product_json(request):
-    product_item = Product.objects.all()
+    product_item = Product.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize('json', product_item))
 
 @csrf_exempt

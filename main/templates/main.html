@@ -250,13 +250,20 @@
                 </td>
                 <td>${item.fields.description}</td>
                 <td>${item.fields.price}</td>
-                <td><a href="delete/${item.pk}">
-                    <button type="submit" class="delete-button">Delete</button>
-                </a></td>
+                <td> 
+                    <button class = delete-button onclick="deleteProduct(${item.pk})">
+                        Delete
+                    </button>
+                </td>
             </tr>` 
             })
             
             document.getElementById("product_table").innerHTML = htmlString
+        }
+
+        async function deleteProduct(id) {
+            const response = await fetch(`/delete_product_ajax/${id}`);
+            refreshProducts();
         }
 
         function addProduct() {
