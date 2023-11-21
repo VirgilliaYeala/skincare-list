@@ -1,6 +1,6 @@
 import datetime
 import json
-from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound, JsonResponse
 from main.forms import ProductForm
 from main.models import Product
 from django.urls import reverse
@@ -34,6 +34,27 @@ def show_main(request):
     }
 
     return render(request, "main.html", context)
+
+@csrf_exempt
+def create_product_flutter(request):
+    if request.method == 'POST':
+        
+        data = json.loads(request.body)
+
+        new_product = Product.objects.create(
+            user = request.user,
+            brand = data["brand"],
+            name = data["name"],
+            price = int(data["price"]),
+            amount = int(data["amount"]),
+            description = data["description"]
+        )
+
+        new_product.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
 
 def delete_product_ajax(request, id):
     product = Product.objects.get(pk= id)
