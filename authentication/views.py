@@ -59,6 +59,6 @@ def signup(request):
         else:
             # Mengambil pesan kesalahan validasi dari form
             errors = dict(user_form.errors)
-            return JsonResponse({"status": "error", "errors": errors}, status=400)
+            return JsonResponse({"status": "error", "message": "register gagal"}, status=400)
 
     return JsonResponse({"status": "error", "message": "Invalid request method"}, status=405)
