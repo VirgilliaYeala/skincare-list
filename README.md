@@ -1,4 +1,4 @@
-## Link APlikasi
+## Link Aplikasi
 [Skincare-List](http://virgillia-yeala-tugas.pbp.cs.ui.ac.id/)
 
 ## Pertanyaan README.md 
