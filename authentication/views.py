@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.forms import UserCreationForm
 
 @csrf_exempt
 def login(request):
@@ -47,3 +48,17 @@ def logout(request):
         "status": False,
         "message": "Logout gagal."
         }, status=401)
+    
+@csrf_exempt
+def signup(request):
+    if request.method == "POST":
+        user_form = UserCreationForm(request.POST)
+        if user_form.is_valid():
+            user = user_form.save()
+            return JsonResponse({"status": "success", "message": "User created successfully"}, status=200)
+        else:
+            # Mengambil pesan kesalahan validasi dari form
+            errors = dict(user_form.errors)
+            return JsonResponse({"status": "error", "errors": errors}, status=400)
+
+    return JsonResponse({"status": "error", "message": "Invalid request method"}, status=405)
