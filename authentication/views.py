@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 @csrf_exempt
 def login(request):
@@ -51,20 +51,17 @@ def logout(request):
     
 @csrf_exempt
 def signup(request):
-    username = request.POST['username']
-    password1 = request.POST['password1']
-    password2 = request.POST['password2']
+    if request.method == "POST":
+        user_form = UserCreationForm(request.POST)
+        if user_form.is_valid():
+            username = user_form.cleaned_data.get('username')
+            password1 = user_form.cleaned_data.get('password1')
+            password2 = user_form.cleaned_data.get('password2')
+            user = user_form.save()
+            return JsonResponse({"status": "success", "message": "User created successfully"}, status=200)
+        else:
+            # Mengambil pesan kesalahan validasi dari form
+            errors = dict(user_form.errors)
+            return JsonResponse({"status": "error", "message": "register gagal"}, status=401)
 
-    if password1 == password2:
-        user = User.objects.create_user(username=username, password=password1)
-        auth_login(request, user)
-        return JsonResponse({
-            "username": username,
-            "status": True,
-            "message": "Register sukses!"
-        }, status=200)
-    else:
-        return JsonResponse({
-            "status": False,
-            "message": "Register gagal, kata sandi tidak sama."
-        }, status=401)
+    return JsonResponse({"status": "error", "message": "Invalid request method"}, status=401)
